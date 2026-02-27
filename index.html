@@ -32,9 +32,11 @@
       var(--bg);
     color: var(--primary);
     font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 1.7;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   body::before {
@@ -85,7 +87,7 @@
     gap: 16px;
     font-family: 'DM Mono', monospace;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--secondary);
@@ -116,7 +118,7 @@
   .header-meta {
     font-family: 'DM Mono', monospace;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.06em;
     color: var(--secondary);
     margin-bottom: 24px;
@@ -145,8 +147,8 @@
   .summary-text {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(19px, 2.6vw, 23px);
-    line-height: 1.65;
+    font-size: clamp(20px, 2.8vw, 24px);
+    line-height: 1.7;
     color: var(--primary);
   }
 
@@ -167,7 +169,7 @@
   .digital-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
-    font-size: 21px;
+    font-size: 22px;
     color: var(--primary);
     margin-bottom: 6px;
     line-height: 1.3;
@@ -177,7 +179,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
     font-style: italic;
-    font-size: 18px;
+    font-size: 19px;
     color: var(--secondary);
     margin-bottom: 6px;
   }
@@ -185,7 +187,7 @@
   .digital-dates {
     font-family: 'DM Mono', monospace;
     font-weight: 500;
-    font-size: 12.5px;
+    font-size: 14px;
     letter-spacing: 0.06em;
     color: var(--accent);
   }
@@ -201,9 +203,9 @@
     display: flex;
     gap: 12px;
     font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.75;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.8;
     color: var(--primary);
   }
 
@@ -253,7 +255,7 @@
   .competency-label {
     font-family: 'DM Mono', monospace;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.08em;
     color: var(--accent);
     text-transform: uppercase;
@@ -263,10 +265,10 @@
 
   .competency-value {
     font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    font-size: 15px;
+    font-weight: 400;
+    font-size: 16px;
     color: var(--primary);
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   /* ---- EXPERIENCE ---- */
@@ -287,7 +289,7 @@
   .exp-company {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
-    font-size: 21px;
+    font-size: 22px;
     color: var(--primary);
     margin-bottom: 4px;
   }
@@ -295,7 +297,7 @@
   .exp-location {
     font-family: 'DM Mono', monospace;
     font-weight: 400;
-    font-size: 12.5px;
+    font-size: 14px;
     letter-spacing: 0.08em;
     color: var(--secondary);
     text-transform: uppercase;
@@ -306,7 +308,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
     font-style: italic;
-    font-size: 18px;
+    font-size: 19px;
     color: var(--primary);
     margin-bottom: 6px;
     line-height: 1.4;
@@ -315,7 +317,7 @@
   .exp-dates {
     font-family: 'DM Mono', monospace;
     font-weight: 500;
-    font-size: 12.5px;
+    font-size: 14px;
     letter-spacing: 0.06em;
     color: var(--accent);
   }
@@ -331,9 +333,9 @@
     display: flex;
     gap: 12px;
     font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.75;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.8;
     color: var(--primary);
   }
 
@@ -376,14 +378,14 @@
   .edu-degree {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 21px;
     color: var(--primary);
   }
 
   .edu-inst {
     font-family: 'DM Mono', monospace;
     font-weight: 400;
-    font-size: 11.5px;
+    font-size: 13px;
     letter-spacing: 0.08em;
     color: var(--secondary);
     text-transform: uppercase;
@@ -405,14 +407,14 @@
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
     font-style: italic;
-    font-size: 19px;
+    font-size: 20px;
     color: var(--secondary);
   }
 
   .footer-note {
     font-family: 'DM Mono', monospace;
     font-weight: 400;
-    font-size: 10.5px;
+    font-size: 12px;
     letter-spacing: 0.08em;
     color: var(--secondary);
     opacity: 0.6;
@@ -422,7 +424,7 @@
   .footer-credit {
     font-family: 'DM Mono', monospace;
     font-weight: 400;
-    font-size: 11.5px;
+    font-size: 12.5px;
     letter-spacing: 0.05em;
     color: var(--secondary);
     width: 100%;
