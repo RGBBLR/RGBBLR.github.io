@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg: #f5f2ed;
+    --paper: #fbf9f5;
+    --primary: #1a1814;
+    --secondary: #8e847b;
+    --accent: #c4a882;
+    --accent-2: #a37b4d;
+    --shadow: rgba(26, 24, 20, 0.12);
+    --max-width: 860px;
+  }
+
+  html {
+    background:
+      radial-gradient(1100px 600px at 10% -10%, rgba(196, 168, 130, 0.22), transparent 60%),
+      radial-gradient(1200px 700px at 100% 0%, rgba(26, 24, 20, 0.08), transparent 55%),
+      var(--bg);
+    color: var(--primary);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+
+  body {
+    padding: 56px 20px 80px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    background: linear-gradient(180deg, rgba(251, 249, 245, 0.97), rgba(245, 242, 237, 0.92));
+    border: 1px solid rgba(196, 168, 130, 0.25);
+    border-radius: 28px;
+    padding: 64px 56px;
+    box-shadow: 0 30px 80px var(--shadow);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section { animation: fadeUp 0.7s ease both; }
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.15s; }
+  .section:nth-child(3) { animation-delay: 0.25s; }
+  .section:nth-child(4) { animation-delay: 0.35s; }
+  .section:nth-child(5) { animation-delay: 0.45s; }
+  .section:nth-child(6) { animation-delay: 0.55s; }
+  .section:nth-child(7) { animation-delay: 0.65s; }
+
+  /* ---- SECTION LABELS ---- */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 32px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  /* ---- HEADER ---- */
+  header { margin-bottom: 80px; }
+
+  .header-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(36px, 5.4vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+
+  .header-meta {
+    font-family: 'DM Mono', monospace;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--secondary);
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+
+  .header-meta span { white-space: nowrap; }
+
+  .header-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(18px, 2.6vw, 22px);
+    color: var(--secondary);
+    letter-spacing: 0.01em;
+    border-top: 1px solid var(--accent);
+    padding-top: 20px;
+    opacity: 0.85;
+  }
+
+  /* ---- SUMMARY ---- */
+  .summary-section { margin-bottom: 80px; }
+
+  .summary-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(19px, 2.6vw, 23px);
+    line-height: 1.65;
+    color: var(--primary);
+  }
+
+  .summary-text p + p { margin-top: 1.2em; }
+
+  /* ---- DIGITAL ASSETS ---- */
+  .digital-section { margin-bottom: 80px; }
+
+  .digital-block {
+    border-top: 1px solid rgba(196,168,130,0.2);
+    border-bottom: 1px solid rgba(196,168,130,0.2);
+    padding: 36px 0;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+  }
+
+  .digital-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--primary);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .digital-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--secondary);
+    margin-bottom: 6px;
+  }
+
+  .digital-dates {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .digital-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .digital-bullets li {
+    display: flex;
+    gap: 12px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--primary);
+  }
+
+  .digital-bullets li::before {
+    content: '—';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .digital-bullets strong {
+    font-weight: 600;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--primary);
+  }
+
+  .digital-bullets a,
+  .exp-bullets a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(196,168,130,0.4);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .digital-bullets a:hover,
+  .exp-bullets a:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  /* ---- COMPETENCIES ---- */
+  .competencies-section { margin-bottom: 80px; }
+
+  .competency-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid rgba(196,168,130,0.25);
+    padding: 18px 0;
+  }
+
+  .competency-item:last-child {
+    border-bottom: 1px solid rgba(196,168,130,0.25);
+  }
+
+  .competency-label {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding-right: 24px;
+    padding-top: 2px;
+  }
+
+  .competency-value {
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--primary);
+    line-height: 1.7;
+  }
+
+  /* ---- EXPERIENCE ---- */
+  .experience-section { margin-bottom: 80px; }
+
+  .exp-entry {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-top: 1px solid rgba(196,168,130,0.2);
+  }
+
+  .exp-entry:last-child {
+    border-bottom: 1px solid rgba(196,168,130,0.2);
+  }
+
+  .exp-company {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .exp-location {
+    font-family: 'DM Mono', monospace;
+    font-weight: 400;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    color: var(--secondary);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--primary);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .exp-dates {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .exp-bullets li {
+    display: flex;
+    gap: 12px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--primary);
+  }
+
+  .exp-bullets li::before {
+    content: '—';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .exp-bullets strong {
+    font-weight: 600;
+    color: var(--primary);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  /* ---- EDUCATION ---- */
+  .education-section { margin-bottom: 80px; }
+
+  .edu-item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid rgba(196,168,130,0.2);
+  }
+
+  .edu-item:last-child {
+    border-bottom: 1px solid rgba(196,168,130,0.2);
+  }
+
+  .edu-dash {
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    flex-shrink: 0;
+  }
+
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--primary);
+  }
+
+  .edu-inst {
+    font-family: 'DM Mono', monospace;
+    font-weight: 400;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    color: var(--secondary);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    border-top: 1px solid rgba(196,168,130,0.3);
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--secondary);
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-weight: 400;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--secondary);
+    opacity: 0.6;
+    text-transform: uppercase;
+  }
+
+  .footer-credit {
+    font-family: 'DM Mono', monospace;
+    font-weight: 400;
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    color: var(--secondary);
+    width: 100%;
+    border-top: 1px solid rgba(196,168,130,0.15);
+    padding-top: 16px;
+    margin-top: 4px;
+  }
+
+  .footer-credit a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(196,168,130,0.4);
+    padding-bottom: 1px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .footer-credit a:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 640px) {
+    body { padding: 24px 14px 56px; }
+    header { margin-bottom: 56px; }
+
+    .container {
+      padding: 36px 24px;
+      border-radius: 22px;
+    }
+
+    .digital-block,
+    .exp-entry {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .competency-item { grid-template-columns: 1fr; gap: 8px; }
+
+    .summary-section,
+    .digital-section,
+    .competencies-section,
+    .experience-section,
+    .education-section { margin-bottom: 56px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="section">
+    <h1 class="header-name">Raghavendra Bhagwat</h1>
+    <div class="header-meta">
+      <span>Bengaluru, India</span>
+      <span> </span>
+      <span>raghubhagwat@gmail.com</span>
+      <span><a href="https://www.linkedin.com/in/RaghuBhagwat" target="_blank" rel="noopener">linkedin.com/in/RaghuBhagwat</a></span>
+    </div>
+    <p class="header-tagline">Real Estate Development &nbsp;·&nbsp; Tier-1 CAPEX &amp; Master Planning &nbsp;·&nbsp; AI-Driven Market Intelligence</p>
+  </header>
+
+  <!-- PROFESSIONAL SUMMARY -->
+  <section class="section summary-section">
+    <div class="section-label">Professional Summary</div>
+    <div class="summary-text">
+      <p>I have spent over a decade managing the master planning and capital expenditure for some of India's largest real estate developers. Through my work with RMZ, Prestige, and Godrej Properties, I've learned exactly how ground-level execution—from supply chain logistics to RERA compliance and handover—dictates an asset's true financial performance.</p>
+      <p>While my foundation is in heavy, multi-tower construction management, my core expertise is capital protection and data strategy. I am deeply interested in the intersection of real estate, technology, and equity markets. I actively use AI tools and data extraction to build predictive financial models, forecast project viabilities, and track real-time progress. My edge is simple: I know how to build the physical asset, and I know how to leverage the data that makes it profitable.</p>
+    </div>
+  </section>
+
+  <!-- PROPRIETARY DIGITAL ASSETS -->
+  <section class="section digital-section">
+    <div class="section-label">Proprietary Digital Assets &amp; Market Intelligence</div>
+    <div class="digital-block">
+      <div class="digital-left">
+        <div class="digital-title">Independent Ventures</div>
+        <div class="digital-role">Founder &amp; Market Strategist</div>
+        <div class="digital-dates">2023 – Present</div>
+      </div>
+      <div class="digital-right">
+        <ul class="digital-bullets">
+          <li><span><strong>Bengaluru Real Estate Insider (<a href="https://x.com/RealEstateBLU" target="_blank" rel="noopener">@RealEstateBLU</a>):</strong> Scaled an organic network of 7,000+ investors, funds, and industry professionals by curating early-stage intelligence on upcoming multi-tower launches and micro-market trends.</span></li>
+          <li><span><strong>Market Intelligence Platform (<a href="https://realestateblr.in" target="_blank" rel="noopener">realestateblr.in</a>):</strong> Developed and manage a centralized hub for data extraction, publishing predictive market intelligence, developer pipeline tracking, and project viability forecasting.</span></li>
+          <li><span><strong>Asymmetric Market Edge:</strong> Utilize on-the-ground supply chain knowledge and regulatory tracking to front-run real estate cycles, providing institutional-grade insights to followers before public RERA filings.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE COMPETENCIES -->
+  <section class="section competencies-section">
+    <div class="section-label">Core Competencies &amp; Technical Skills</div>
+    <div class="competency-item">
+      <div class="competency-label">Financial &amp; Equity Strategy</div>
+      <div class="competency-value">CAPEX Optimization, Dynamic Cash Flow Forecasting, Quantitative Market Analysis, Risk Mitigation.</div>
+    </div>
+    <div class="competency-item">
+      <div class="competency-label">Technology &amp; AI</div>
+      <div class="competency-value">Python (Data Extraction &amp; Automation), Local LLM Deployment (Predictive Modeling), PropTech Strategy.</div>
+    </div>
+    <div class="competency-item">
+      <div class="competency-label">Real Estate Execution</div>
+      <div class="competency-value">Master Integrated Scheduling, RERA &amp; IGBC/USGBC Compliance, Vendor &amp; Procurement Strategy, Enterprise-Level Cost Control.</div>
+    </div>
+  </section>
+
+  <!-- PROFESSIONAL EXPERIENCE -->
+  <section class="section experience-section">
+    <div class="section-label">Professional Experience</div>
+
+    <!-- Ramsons -->
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-company">Ramsons Trendsquares</div>
+        <div class="exp-location">Bengaluru, India</div>
+        <div class="exp-role">Senior Project Manager — Planning (Mixed-Use Development)</div>
+        <div class="exp-dates">Jun 2024 – Present</div>
+      </div>
+      <div class="exp-right">
+        <ul class="exp-bullets">
+          <li><span><strong>Master Financial &amp; Temporal Planning:</strong> Spearhead the strategic planning and execution of a massive, multi-asset development portfolio, architecting integrated models that synchronize cross-vertical cash flows with site milestones.</span></li>
+          <li><span><strong>Large-Scale Execution &amp; Risk Mitigation:</strong> Direct the critical path scheduling and CAPEX deployment for 6 high-rise towers (Towers A-F), developing proactive frameworks to neutralize financial risks from supply chain bottlenecks and procurement delays.</span></li>
+          <li><span><strong>Granular Cost &amp; Quality Control:</strong> Leverage advanced tracking metrics to oversee high-value finishing phases—including waterproofing, gypsum, MEP, and tiling workflows—ensuring optimal capital efficiency and strict RERA compliance.</span></li>
+          <li><span><strong>Executive Data Reporting:</strong> Provide C-level management and investors with predictive analytics and high-level reporting on portfolio performance, contractor financial health, and overall development ROI.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Godrej -->
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-company">Godrej Properties</div>
+        <div class="exp-location">Bengaluru, India</div>
+        <div class="exp-role">Assistant Manager — Planning (High-Rise Residential Projects)</div>
+        <div class="exp-dates">2022 – 2024</div>
+      </div>
+      <div class="exp-right">
+        <ul class="exp-bullets">
+          <li><span><strong>Financial &amp; CAPEX Execution:</strong> Directed project budgeting and integrated micro-scheduling for luxury high-rise developments, driving aggressive capital deployment to achieve 125% cumulative Cost of Construction (COC) realization for FY'23.</span></li>
+          <li><span><strong>Risk Mitigation &amp; Speed-to-Market:</strong> Identified and neutralized critical path delays through advanced Alu Form shell planning, accelerating the modulation of 9 towers within 90 days and executing 4 tower foundations in just 28 days.</span></li>
+          <li><span><strong>PropTech &amp; Data Integration:</strong> Architected and deployed a centralized online portal for site progress visualization, bridging the data gap between on-site execution and executive financial reporting.</span></li>
+          <li><span><strong>High-Value Procurement:</strong> Led tender scheduling and vendor negotiations for critical packages, optimizing cash flow while ensuring strict adherence to IGBC Green Building standards.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Prestige -->
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-company">Prestige Group</div>
+        <div class="exp-location">Bengaluru, India</div>
+        <div class="exp-role">Deputy Manager — Planning (Retail &amp; Commercial Projects)</div>
+        <div class="exp-dates">2019 – 2022</div>
+      </div>
+      <div class="exp-right">
+        <ul class="exp-bullets">
+          <li><span><strong>Portfolio Financial Modeling:</strong> Built comprehensive master budgets, cost forecasts, and financial models for large-scale retail and commercial assets, including Falcon City, Kochi Mall, REX Walk, and Prestige Alphatech.</span></li>
+          <li><span><strong>Dynamic Cash Flow Forecasting:</strong> Derived highly accurate monthly cash flow projections directly linked to vendor micro-schedules, ensuring precise capital allocation and synchronized tender event execution.</span></li>
+          <li><span><strong>Cost Control &amp; Margin Protection:</strong> Spearheaded design review and BOQ (Bill of Quantities) analysis to identify financial discrepancies early, enforcing a strict "zero rework" policy to protect overall project margins.</span></li>
+          <li><span><strong>Strategic Risk Management:</strong> Developed and maintained advanced risk registers and budgetary performance reports, providing senior leadership with data-driven insights for strategic capital decisions.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RMZ -->
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-company">RMZ Corp</div>
+        <div class="exp-location">Bengaluru, India</div>
+        <div class="exp-role">Deputy Manager — Development (Premium Commercial Office Spaces)</div>
+        <div class="exp-dates">2014 – 2019</div>
+      </div>
+      <div class="exp-right">
+        <ul class="exp-bullets">
+          <li><span><strong>PAN-India CAPEX Management:</strong> Directed capital expenditure tracking and financial performance for CoWrks across India, executing granular cost-per-square-foot analysis to optimize enterprise-level asset profitability.</span></li>
+          <li><span><strong>Digital Transformation &amp; PropTech Integration:</strong> Championed early-stage digital adoption by spearheading Building Information Modeling (BIM) implementation via Autodesk Revit and Navisworks, drastically improving design integration and clash detection.</span></li>
+          <li><span><strong>Quantitative Financial Oversight:</strong> Led comprehensive quantity surveying, billing cycles, and rigorous contractor performance evaluations to enforce financial accountability across all procurement channels.</span></li>
+          <li><span><strong>Data-Backed Resource Optimization:</strong> Executed advanced material optimization strategies, significantly reducing construction debris and lowering overall project waste costs for Grade-A commercial assets.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RAA -->
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-company">RAA Design Studio</div>
+        <div class="exp-location">Vijayapura, India</div>
+        <div class="exp-role">Site Engineer (Residential &amp; Commercial Projects)</div>
+        <div class="exp-dates">2013 – 2014</div>
+      </div>
+      <div class="exp-right">
+        <ul class="exp-bullets">
+          <li><span>Supervised site execution and architectural drafting to ensure strict compliance with design standards and safety protocols.</span></li>
+          <li><span>Managed material procurement, coordinated vendor schedules, and prepared foundational blueprints for regulatory approvals.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION & CERTIFICATIONS -->
+  <section class="section education-section">
+    <div class="section-label">Education &amp; Certifications</div>
+    <div class="edu-item">
+      <span class="edu-dash">—</span>
+      <div class="edu-content">
+        <div class="edu-degree">Postgraduate in Construction Management (PGP)</div>
+        <div class="edu-inst">NICMAR</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <span class="edu-dash">—</span>
+      <div class="edu-content">
+        <div class="edu-degree">LEED Green Associate</div>
+        <div class="edu-inst">Sustainable Building Certification</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="section">
+    <div class="footer-name">Raghavendra Bhagwat</div>
+    <div class="footer-note">Bengaluru, India &nbsp;·&nbsp; Real Estate Development</div>
+    <div class="footer-credit">Follow upcoming real estate insights &nbsp;→&nbsp; <a href="https://x.com/RealEstateBLU" target="_blank" rel="noopener">@RealEstateBLU</a> &nbsp;·&nbsp; <a href="https://realestateblr.in" target="_blank" rel="noopener">realestateblr.in</a></div>
+  </footer>
+
+</div>
+</body>
+</html>
